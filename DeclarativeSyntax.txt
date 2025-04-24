@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out code'
+            }
+        }
+
+        stage('User Input') {
+            steps {
+                script {
+                    def userCredentials = input(
+                        message: 'Please enter your username and password',
+                        parameters: [
+                            string(
+                                name: 'Username',
+                                defaultValue: 'root',
+                                description: 'Enter your username'
+                            ),
+                            password(
+                                name: 'Password',
+                                defaultValue: 'root',
+                                description: 'Enter your password'
+                            )
+                        ]
+                    )
+                    def username = userCredentials['Username']
+                    def password = userCredentials['Password']
+                    echo "Username entered: ${username}"
+                    echo "Password entered: ${password}"
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the project'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying to production'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+    }
+}
