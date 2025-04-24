@@ -1,12 +1,12 @@
 pipeline {
-    agent { label 'master' }
+    agent { label 'master - NodeName' }
 
     stages {
-        stage('Run on Master') {
+        stage('Run on Windows Master') {
             steps {
-                echo "This job is running on the master node."
-                sh 'hostname'
-                sh 'whoami'
+                echo "This job is running on the Windows master node."
+                bat 'hostname'
+                bat 'whoami'
             }
         }
     }
