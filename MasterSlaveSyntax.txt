@@ -1,0 +1,13 @@
+pipeline {
+    agent { label 'master' }
+
+    stages {
+        stage('Run on Master') {
+            steps {
+                echo "This job is running on the master node."
+                sh 'hostname'
+                sh 'whoami'
+            }
+        }
+    }
+}
